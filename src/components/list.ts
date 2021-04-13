@@ -28,11 +28,9 @@ const ListComponent = (): void => {
       .forEach((item) => {
         const component = ItemComponent(item);
         component.clicked.subscribe(() => {
-          console.log("clicked", item.id);
           actions.changeItemStatus(item.id);
         });
         component.removed.subscribe(() => {
-          console.log("removed", item.id);
           actions.removeItem(item.id);
         });
         list.append(component.el);

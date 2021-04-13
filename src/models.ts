@@ -1,7 +1,13 @@
 export interface TodoItem {
   id?: number;
   content: string;
-  done: boolean;
+  complete: boolean;
+}
+
+export interface Counters {
+  total: number;
+  complete: number;
+  open: number;
 }
 
 export enum FilterType {

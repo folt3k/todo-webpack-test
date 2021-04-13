@@ -1,12 +1,22 @@
-import _store from "./store";
-import { FilterType, TodoItem } from "./models";
+import { map } from "rxjs/operators";
 import "./styles.scss";
 
-export const store = _store();
+import { Counters, FilterType, TodoItem } from "./models";
+import { state as _state, action as _action, selectCounters } from "./store";
+import { actions } from "./actions";
+
+export const action = _action();
+export const state = _state(action);
 
 renderInput();
-renderContent();
 renderFilters();
+
+state.subscribe(({ items, activeFilter }) => {
+  renderList(items, activeFilter);
+});
+state.pipe(map(selectCounters)).subscribe((counters) => {
+  renderCounters(counters);
+});
 
 function renderInput(): void {
   const input = document.getElementById("input");
@@ -16,15 +26,9 @@ function renderInput(): void {
       const value = (event.target as HTMLInputElement).value;
 
       (input as HTMLInputElement).value = "";
-      store.addItem({ content: value, done: false });
-      renderContent();
+      actions.addItem({ content: value, complete: false });
     }
   });
-}
-
-function renderContent(): void {
-  renderList();
-  renderCounters();
 }
 
 function renderFilters(): void {
@@ -36,10 +40,9 @@ function renderFilters(): void {
 
   function renderFilterBtn(element: Element, type: FilterType): void {
     element.addEventListener("click", () => {
-      store.changeActiveFilter(type);
+      actions.changeActiveFilter(type);
       clearFilterButtonsClasses();
       element.classList.add("selected");
-      renderContent();
     });
   }
 
@@ -50,9 +53,7 @@ function renderFilters(): void {
   }
 }
 
-function renderList(): void {
-  const items = store.getItems();
-  const activeFilter = store.getActiveFilter();
+function renderList(items: TodoItem[], activeFilter: FilterType): void {
   const list = document.getElementById("list");
 
   list.innerHTML = "";
@@ -62,9 +63,9 @@ function renderList(): void {
         case FilterType.ALL:
           return true;
         case FilterType.COMPLETE:
-          return item.done;
+          return item.complete;
         case FilterType.OPEN:
-          return !item.done;
+          return !item.complete;
       }
     })
     .forEach((item) => {
@@ -76,31 +77,27 @@ function renderList(): void {
     const id = +item.getAttribute("data-id");
 
     item.addEventListener("click", () => {
-      store.changeItemStatus(id);
-      renderContent();
+      actions.changeItemStatus(id);
     });
 
     item.querySelector(".item__close").addEventListener("click", (event) => {
       event.stopPropagation();
-      store.removeItem(id);
-      renderContent();
+      actions.removeItem(id);
     });
   });
 }
 
-function renderCounters(): void {
-  const counters = store.getCounters();
-
+function renderCounters(counters: Counters): void {
   const totalCounterEl = document.querySelector("#totalCounter");
   const completeCounterEl = document.querySelector("#completeCounter");
   const openCounterEl = document.querySelector("#openCounter");
 
-  totalCounterEl.innerHTML = `${counters.open + counters.done}`;
-  completeCounterEl.innerHTML = `${counters.done}`;
+  totalCounterEl.innerHTML = `${counters.open + counters.complete}`;
+  completeCounterEl.innerHTML = `${counters.complete}`;
   openCounterEl.innerHTML = `${counters.open}`;
 }
 
-function createItemElement({ content, done, id }: TodoItem): HTMLDivElement {
+function createItemElement({ content, complete, id }: TodoItem): HTMLDivElement {
   const el = document.createElement("div");
 
   el.setAttribute("data-id", id.toString());
@@ -114,8 +111,8 @@ function createItemElement({ content, done, id }: TodoItem): HTMLDivElement {
     <button class="item__close">&times;</button>
 `;
 
-  if (done) {
-    el.classList.add("item--done");
+  if (complete) {
+    el.classList.add("item--complete");
   }
 
   return el;

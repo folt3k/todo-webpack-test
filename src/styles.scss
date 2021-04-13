@@ -1,0 +1,150 @@
+$primary-color: #459a25;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  color: $primary-color;
+  font-size: 20px;
+}
+
+main {
+  padding-top: 200px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#input {
+  width: 100%;
+  padding: 1rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: #272727;
+  color: $primary-color;
+  box-shadow: none;
+  outline: 0;
+  font-size: 1rem;
+
+  &:focus {
+    border: 2px solid $primary-color;
+  }
+}
+
+#list {
+  margin-top: 2rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.6rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 5px;
+  background-color: #212121;
+
+  &:hover > .item__close {
+    opacity: 1;
+  }
+}
+
+.item__content {
+  display: flex;
+}
+
+.item__close {
+  opacity: 0;
+  padding: 1rem 0.4rem;
+  border: 0;
+  background-color: transparent;
+  color: #5b5b5b;
+  font-size: 2rem;
+  line-height: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.item__content {
+  display: flex;
+  align-items: center;
+}
+
+.item__status {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-right: 1rem;
+  border-radius: 50%;
+  border: 1px solid #5b5b5b;
+  cursor: pointer;
+}
+
+.item--done {
+  .item__label {
+    color: #727272;
+    text-decoration: line-through;
+  }
+  .item__status {
+    border-color: $primary-color;
+
+    &:before {
+      content: "";
+      position: absolute;
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0 3px 3px 0;
+      top: 4px;
+      left: 11px;
+      transform: rotate(45deg);
+      height: 14px;
+      width: 6px;
+    }
+  }
+}
+
+#stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.4rem;
+}
+
+#filters {
+  display: flex;
+  margin-top: 1rem;
+
+  button {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    border-right: 0;
+    outline: 0;
+
+    &:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-right: 1px solid $primary-color;
+    }
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    &.selected {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+}

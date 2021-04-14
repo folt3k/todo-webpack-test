@@ -1,5 +1,6 @@
-import { FilterType } from "../models";
-import { actions } from "../actions";
+import { FilterType } from "../interfaces";
+import { store } from "../index";
+import { changeActiveFilter } from "../state/actions";
 
 const FiltersComponent = (): void => {
   const filtersEl = document.querySelector("#filters");
@@ -10,7 +11,7 @@ const FiltersComponent = (): void => {
 
   function renderFilterBtn(element: Element, type: FilterType): void {
     element.addEventListener("click", () => {
-      actions.changeActiveFilter(type);
+      store.dispatch(changeActiveFilter(type));
       clearFilterButtonsClasses();
       element.classList.add("selected");
     });

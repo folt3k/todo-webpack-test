@@ -1,14 +1,16 @@
-import { FilterType, TodoItem } from "../models";
-import { actions } from "../actions";
+import { take } from "rxjs/operators";
+
+import { FilterType, TodoItem } from "../interfaces";
 import ItemComponent from "./item";
-import { state } from "../index";
+import { store } from "../index";
+import { changeItemStatus, removeItem } from "../state/actions";
 
 const ListComponent = (): void => {
   const list = document.getElementById("list");
 
   render([], FilterType.ALL);
 
-  state.subscribe(({ items, activeFilter }) => {
+  store.select.subscribe(({ items, activeFilter }) => {
     render(items, activeFilter);
   });
 
@@ -27,11 +29,12 @@ const ListComponent = (): void => {
       })
       .forEach((item) => {
         const component = ItemComponent(item);
-        component.clicked.subscribe(() => {
-          actions.changeItemStatus(item.id);
+
+        component.clicked.pipe(take(1)).subscribe(() => {
+          store.dispatch(changeItemStatus(item.id));
         });
-        component.removed.subscribe(() => {
-          actions.removeItem(item.id);
+        component.removed.pipe(take(1)).subscribe(() => {
+          store.dispatch(removeItem(item.id));
         });
         list.append(component.el);
       });

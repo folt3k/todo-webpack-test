@@ -1,15 +1,15 @@
 import { map } from "rxjs/operators";
 
-import { Counters } from "../models";
-import { selectCounters } from "../store";
-import { state } from "../index";
+import { Counters } from "../interfaces";
+import { store } from "../index";
+import { selectCounters } from "../state/selectors";
 
 const CountersComponent = (): void => {
   const totalCounterEl = document.querySelector("#totalCounter");
   const completeCounterEl = document.querySelector("#completeCounter");
   const openCounterEl = document.querySelector("#openCounter");
 
-  state.pipe(map(selectCounters)).subscribe((counters) => {
+  store.select.pipe(map(selectCounters)).subscribe((counters) => {
     render(counters);
   });
 

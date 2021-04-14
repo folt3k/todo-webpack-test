@@ -1,4 +1,5 @@
-import { actions } from "../actions";
+import { store } from "../index";
+import { addItem } from "../state/actions";
 
 const InputComponent = (): void => {
   const input = document.getElementById("input");
@@ -8,7 +9,7 @@ const InputComponent = (): void => {
       const value = (event.target as HTMLInputElement).value;
 
       (input as HTMLInputElement).value = "";
-      actions.addItem({ content: value, complete: false });
+      store.dispatch(addItem({ content: value, complete: false }));
     }
   });
 };

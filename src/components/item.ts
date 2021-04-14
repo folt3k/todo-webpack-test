@@ -1,4 +1,4 @@
-import { TodoItem } from "../models";
+import { TodoItem } from "../interfaces";
 import { Subject } from "rxjs";
 
 const ItemComponent = ({ content, complete, id }: TodoItem) => {

@@ -1,6 +1,8 @@
-export enum types {
+enum types {
   ADD_ITEM = "ADD_ITEM",
   REMOVE_ITEM = "REMOVE_ITEM",
   CHANGE_ITEM_STATUS = "CHANGE_ITEM_STATUS",
   CHANGE_ACTIVE_FILTER = "CHANGE_ACTIVE_FILTER",
 }
+
+export default types;

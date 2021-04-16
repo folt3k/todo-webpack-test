@@ -11,7 +11,7 @@ export interface Counters {
 }
 
 export enum FilterType {
-  ALL = "ALL",
-  OPEN = "OPEN",
-  COMPLETE = "COMPLETE",
+  ALL = 'ALL',
+  OPEN = 'OPEN',
+  COMPLETE = 'COMPLETE',
 }

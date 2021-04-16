@@ -1,6 +1,6 @@
-import { FilterType, TodoItem } from "../interfaces";
-import { Action } from "../store";
-import types from "./types";
+import { FilterType, TodoItem } from '../interfaces';
+import { Action } from '../store';
+import types from './types';
 
 export interface State {
   items: TodoItem[];

@@ -1,5 +1,5 @@
-import { Counters } from "../interfaces";
-import { State } from "./reducer";
+import { Counters } from '../interfaces';
+import { State } from './reducer';
 
 export const selectCounters = (state: State): Counters => ({
   total: state.items.length,

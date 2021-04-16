@@ -1,22 +1,22 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: './src/index.ts',
   module: {
     rules: [
       {
         test: /\.ts?$/,
-        use: "ts-loader",
+        use: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: './public/index.html',
     }),
   ],
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: ['.ts', '.js'],
   },
 };

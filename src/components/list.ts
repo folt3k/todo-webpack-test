@@ -1,12 +1,12 @@
-import { take } from "rxjs/operators";
+import { take } from 'rxjs/operators';
 
-import { FilterType, TodoItem } from "../interfaces";
-import ItemComponent from "./item";
-import { store } from "../index";
-import { changeItemStatus, removeItem } from "../state/actions";
+import { FilterType, TodoItem } from '../interfaces';
+import ItemComponent from './item';
+import { store } from '../index';
+import { changeItemStatus, removeItem } from '../state/actions';
 
 const ListComponent = (): void => {
-  const list = document.getElementById("list");
+  const list = document.getElementById('list');
 
   render([], FilterType.ALL);
 
@@ -15,7 +15,7 @@ const ListComponent = (): void => {
   });
 
   function render(items: TodoItem[], activeFilter: FilterType): void {
-    list.innerHTML = "";
+    list.innerHTML = '';
     items
       .filter((item) => {
         switch (activeFilter) {

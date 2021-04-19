@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { scan, share } from 'rxjs/operators';
+import { scan, share, shareReplay } from 'rxjs/operators';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Action<T = any> {
@@ -16,7 +16,7 @@ export interface Store<T> {
 
 const createStore = <T>(reducer: Reducer<T>): Store<T> => {
   const action$ = new BehaviorSubject<Action>({ type: null });
-  const state$: Observable<T> = action$.pipe(scan(reducer, undefined), share());
+  const state$: Observable<T> = action$.pipe(scan(reducer, undefined), share(), shareReplay(1));
 
   return {
     dispatch: action$.next.bind(action$),

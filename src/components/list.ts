@@ -2,10 +2,11 @@ import { take } from 'rxjs/operators';
 
 import { FilterType, TodoItem } from '../interfaces';
 import ItemComponent from './item';
-import { store } from '../index';
 import { changeItemStatus, removeItem } from '../state/actions';
+import { Store } from '../store';
+import { State } from '../state/reducer';
 
-const ListComponent = (): void => {
+const ListComponent = ({ store }: { store: Store<State> }): void => {
   const list = document.getElementById('list');
 
   render([], FilterType.ALL);

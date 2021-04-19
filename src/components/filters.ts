@@ -1,8 +1,9 @@
 import { FilterType } from '../interfaces';
-import { store } from '../index';
 import { changeActiveFilter } from '../state/actions';
+import { Store } from '../store';
+import { State } from '../state/reducer';
 
-const FiltersComponent = (): void => {
+const FiltersComponent = ({ store }: { store: Store<State> }): void => {
   const filtersEl = document.querySelector('#filters');
 
   renderFilterBtn(document.querySelector('#allFilterBtn'), FilterType.ALL);

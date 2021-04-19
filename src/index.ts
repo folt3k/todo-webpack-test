@@ -10,7 +10,7 @@ import ListComponent from './components/list';
 
 export const store = createStore<State>(reducer);
 
-InputComponent();
-FiltersComponent();
-ListComponent();
-CountersComponent();
+InputComponent({ store });
+FiltersComponent({ store });
+ListComponent({ store });
+CountersComponent({ store });

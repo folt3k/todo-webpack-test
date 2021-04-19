@@ -1,11 +1,12 @@
-import { store } from '../index';
 import { addItem } from '../state/actions';
+import { Store } from '../store';
+import { State } from '../state/reducer';
 
-const InputComponent = (): void => {
+const InputComponent = ({ store }: { store: Store<State> }): void => {
   const input = document.getElementById('input');
 
   input.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+    if (event.keyCode === 13) {
       const value = (event.target as HTMLInputElement).value;
 
       (input as HTMLInputElement).value = '';

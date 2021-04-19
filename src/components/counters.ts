@@ -1,10 +1,11 @@
 import { map } from 'rxjs/operators';
 
 import { Counters } from '../interfaces';
-import { store } from '../index';
 import { selectCounters } from '../state/selectors';
+import { Store } from '../store';
+import { State } from '../state/reducer';
 
-const CountersComponent = (): void => {
+const CountersComponent = ({ store }: { store: Store<State> }): void => {
   const totalCounterEl = document.querySelector('#totalCounter');
   const completeCounterEl = document.querySelector('#completeCounter');
   const openCounterEl = document.querySelector('#openCounter');
